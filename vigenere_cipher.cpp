@@ -2,6 +2,7 @@
 #include <vector>
 #include <map>
 #include <algorithm>
+#include "plog/Log.h"
 
 std::string gCiphertext = "zpgdl rjlaj kpylx zpyyg lrjgd lrzhz qyjzq repvm swrzy rigzh\
 zvreg kwivs saolt nliuw oldie aqewf iiykh bjowr hdogc qhkwa\
@@ -68,6 +69,7 @@ std::pair<double, std::vector<std::string>> analyzeFrequencyDistribution(std::st
 
 int main(int argc, char **argv)
 {
+    plog::init(plog::debug, "log.txt");
     std::string ciphertext = gCiphertext;
     std::pair<double, std::vector<std::string>> freqAnalysis;
     int k = 0;
@@ -79,6 +81,6 @@ int main(int argc, char **argv)
         avgIndCo = freqAnalysis.first;
     }
     
-    std::cout << "k: " << k << std::endl;
+    LOGD << "k: " << k;
     return 0;
 }
