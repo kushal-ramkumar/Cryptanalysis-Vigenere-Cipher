@@ -50,10 +50,10 @@ std::pair<double, std::vector<std::string>> analyzeFrequencyDistribution(std::st
     std::vector<std::string> vSubstring;
     xCiphertext.erase(remove_if(xCiphertext.begin(), xCiphertext.end(), isspace), xCiphertext.end());
     
-    for(int i = 0; i < k; i++)
+    for(unsigned int i = 0; i < k; i++)
     {
         std::string substring;
-        for(int j = i; j < xCiphertext.size(); j += k)
+        for(unsigned int j = i; j < xCiphertext.size(); j += k)
         {
             substring += xCiphertext[j];
         }
