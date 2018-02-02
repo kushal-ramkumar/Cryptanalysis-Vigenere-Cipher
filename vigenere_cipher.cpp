@@ -33,6 +33,19 @@ double indexOfCoincidence(FrequencyDistribution xFreqTable, unsigned int xLength
     return indCo;
 }
 
+double mutualIndexOfCoincidence(FrequencyDistribution s, unsigned int n, FrequencyDistribution t, unsigned int m)
+{
+    double mutualIndCo = 0;
+
+    for (int i = 97; i <= 122; i++)
+    {
+        mutualIndCo += s[char(i)]*t[char(i)];
+    }
+    mutualIndCo *= (double)1/(n*m);
+
+    return mutualIndCo;
+}
+
 FrequencyDistribution createFrequencyDistributionTable(std::string xCiphertext)
 {
     FrequencyDistribution freqTable;
@@ -67,6 +80,23 @@ std::pair<double, std::vector<std::string>> analyzeFrequencyDistribution(std::st
     return std::make_pair(avgIndCo, vSubstring);
 }
 
+std::string substringPlusSigma(std::string xInput, unsigned int xSigma)
+{
+    std::string shiftedString;
+    for (unsigned int i = 0; i < xInput.size(); i++)
+    {
+        if (char(xInput[i]) + xSigma > 122)
+        {
+            shiftedString += char(97 + char(xInput[i]) + xSigma - 122 - 1);
+        }
+        else
+        {
+            shiftedString += char(xInput[i] + xSigma);
+        }
+    }
+    return shiftedString;
+}
+
 int main(int argc, char **argv)
 {
     plog::init(plog::debug, "log.txt");
@@ -81,6 +111,25 @@ int main(int argc, char **argv)
         avgIndCo = freqAnalysis.first;
     }
     
+    std::map<double, unsigned int> mBetas;
+    for (int l = 0; l < k; l++)
+    {
+        for (int j = l+1; j < k; j++)
+        {
+            std::cout << "s" << l << "-s" << j << ":" << std::endl;
+            std::vector<double> vmIndices;
+            for (int i = 0; i < 26; i++)
+            {
+                std::string shiftedString = substringPlusSigma(freqAnalysis.second[j], i);
+                FrequencyDistribution s, t;
+                s = createFrequencyDistributionTable(freqAnalysis.second[l]);
+                t = createFrequencyDistributionTable(shiftedString);
+                vmIndices.push_back(mutualIndexOfCoincidence(s, freqAnalysis.second[l].size(), t, shiftedString.size()));
+                std::cout << "Shift: " << i << " MutIndCo: " << vmIndices[i] << std::endl;
+            }
+        }
+    }
+
     LOGD << "k: " << k;
     return 0;
 }
