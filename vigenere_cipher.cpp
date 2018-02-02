@@ -111,25 +111,21 @@ int main(int argc, char **argv)
         avgIndCo = freqAnalysis.first;
     }
     
-    std::map<double, unsigned int> mBetas;
     for (int l = 0; l < k; l++)
     {
         for (int j = l+1; j < k; j++)
         {
             std::cout << "s" << l << "-s" << j << ":" << std::endl;
-            std::vector<double> vmIndices;
             for (int i = 0; i < 26; i++)
             {
                 std::string shiftedString = substringPlusSigma(freqAnalysis.second[j], i);
                 FrequencyDistribution s, t;
                 s = createFrequencyDistributionTable(freqAnalysis.second[l]);
                 t = createFrequencyDistributionTable(shiftedString);
-                vmIndices.push_back(mutualIndexOfCoincidence(s, freqAnalysis.second[l].size(), t, shiftedString.size()));
-                std::cout << "Shift: " << i << " MutIndCo: " << vmIndices[i] << std::endl;
+                std::cout << "Shift: " << i << " MutIndCo: " << mutualIndexOfCoincidence(s, freqAnalysis.second[l].size(), t, shiftedString.size()) << std::endl;
             }
         }
     }
 
-    LOGD << "k: " << k;
     return 0;
 }
