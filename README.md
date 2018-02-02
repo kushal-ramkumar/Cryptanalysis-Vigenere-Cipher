@@ -1,4 +1,4 @@
-# Cryptanalysis of the Vigenere Cipher
+# Cryptanalysis of the Vigenère Cipher
 
 The Vigenère Cipher is a form of a polyalphabetic cipher that can be used for encrypting alphabetic text using a series of interwoven Caesar Ciphers based on the letters of a keyword. This project can be used to break a Vigenère Cipher using statistical analysis.
 
