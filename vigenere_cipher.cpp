@@ -97,6 +97,25 @@ std::string substringPlusSigma(std::string xInput, unsigned int xSigma)
     return shiftedString;
 }
 
+std::string vigenere_cipher(std::string s1, std::string key)
+{
+    std::string output;
+    for (unsigned int i = 0; i < s1.size(); i++)
+    {
+        char new_val = s1[i] - key[i % key.size()];
+        if (new_val < 0)
+        {
+            new_val = 123 + new_val;
+            output += char(new_val);
+        }
+        else
+        {
+            output += char(s1[i] - (key[i % key.size()] - 97));
+        }
+    }
+    return output;
+}
+
 int main(int argc, char **argv)
 {
     plog::init(plog::debug, "log.txt");
@@ -125,6 +144,16 @@ int main(int argc, char **argv)
                 std::cout << "Shift: " << i << " MutIndCo: " << mutualIndexOfCoincidence(s, freqAnalysis.second[l].size(), t, shiftedString.size()) << std::endl;
             }
         }
+    }
+
+    /* Solve the equations for betas manually and then run the following code to decrypt your ciphertext!*/
+    for (int keyIndex = 0; keyIndex < 25; keyIndex++)
+    {
+        std::cout << "TRIAL " << keyIndex << std::endl;
+        std::string substring = ciphertext;
+        substring.erase(remove_if(substring.begin(), substring.end(), isspace), substring.end());
+        std::cout << vigenere_cipher(substring, substringPlusSigma("afzhbkp", keyIndex)) << std::endl;
+        std::cout << std::endl;
     }
 
     return 0;
