@@ -2,7 +2,7 @@
 #include <vector>
 #include <map>
 #include <algorithm>
-#include "plog/Log.h"
+#include <sstream>
 
 std::string gCiphertext = "zpgdl rjlaj kpylx zpyyg lrjgd lrzhz qyjzq repvm swrzy rigzh\
 zvreg kwivs saolt nliuw oldie aqewf iiykh bjowr hdogc qhkwa\
@@ -122,7 +122,6 @@ std::string vigenere_cipher(std::string s1, std::string key)
 
 int main(int argc, char **argv)
 {
-    plog::init(plog::debug, "log.txt");
     //std::string ciphertext = gCiphertext;
     std::string ciphertext = gCiphertext2;
     std::transform(ciphertext.begin(), ciphertext.end(), ciphertext.begin(), ::tolower);
