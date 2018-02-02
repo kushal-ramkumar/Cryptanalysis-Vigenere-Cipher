@@ -11,6 +11,8 @@ dmjsv jqbrn klpcf iowhv kxjbj pmfkr qthtk ozrgq ihbmq sbivd\
 ardym qmpbu nivxm tzwqv gefjh ucbor vwpcd xuwft qmoow jipds\
 fluqm oeavl jgqea lrkti wvext vkrrg xani";
 
+std::string gCiphertext2 = "GCMMFSHPXMHJAYKGCHTPVBVRKCJBCSMFVECEEBNQZYGMKESNKGKTWXXYIUCETLUQHPTLEMJRKZVCGRWRFPIEMWFCWUTTVBCQBQROFRXBVIHUBQJWTVGYCGSGEGWMWFYSCTCSIMJAWOBJZBWRLYDQBQGCVLGOHMBAZVDCRAKBKBEMSQLYNPSGLRFVS";
+
 typedef std::map<char, int> FrequencyDistribution;
 
 void printFrequencyDistribution(FrequencyDistribution xFreqTable)
@@ -119,7 +121,9 @@ std::string vigenere_cipher(std::string s1, std::string key)
 int main(int argc, char **argv)
 {
     plog::init(plog::debug, "log.txt");
-    std::string ciphertext = gCiphertext;
+    //std::string ciphertext = gCiphertext;
+    std::string ciphertext = gCiphertext2;
+    std::transform(ciphertext.begin(), ciphertext.end(), ciphertext.begin(), ::tolower);
     std::pair<double, std::vector<std::string>> freqAnalysis;
     int k = 0;
     double avgIndCo = 0;
@@ -130,6 +134,7 @@ int main(int argc, char **argv)
         avgIndCo = freqAnalysis.first;
     }
     
+    std::cout << "Key Length: " << k << std::endl;
     for (int l = 0; l < k; l++)
     {
         for (int j = l+1; j < k; j++)
@@ -150,9 +155,16 @@ int main(int argc, char **argv)
     for (int keyIndex = 0; keyIndex < 25; keyIndex++)
     {
         std::cout << "TRIAL " << keyIndex << std::endl;
+        std::cout << "KEY: " << substringPlusSigma("afypvu", keyIndex) << std::endl;
         std::string substring = ciphertext;
         substring.erase(remove_if(substring.begin(), substring.end(), isspace), substring.end());
-        std::cout << vigenere_cipher(substring, substringPlusSigma("afzhbkp", keyIndex)) << std::endl;
+        
+        /* Breaking Ciphertext 1 */
+        //std::cout << vigenere_cipher(substring, substringPlusSigma("afzhbkp", keyIndex)) << std::endl;
+
+        /* Breaking Ciphertext 2 */
+        std::cout << vigenere_cipher(substring, substringPlusSigma("afypvu", keyIndex)) << std::endl;
+
         std::cout << std::endl;
     }
 
