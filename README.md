@@ -29,7 +29,7 @@ The solution file is created in "build/", load it, compile and run!
 
 ## Authors
 
-* **Kushal Ramkumar** - [kushal-ramkumar](https://github.com/kushal-ramkumar)
+* **Kushal Ramkumar** - [kushalramkumar](https://github.com/kushalramkumar)
 
 ## Acknowledgments
 
